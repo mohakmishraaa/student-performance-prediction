@@ -1,0 +1,11 @@
+name: student-performance-env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+      - numpy==2.5.4
+      - pandas==2.3.3
+      - scikit-learn==1.9.1
+      - joblib==1.6.0

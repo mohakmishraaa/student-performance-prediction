@@ -1,0 +1,25 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
+display_name: student-performance-grade-regression
+experiment_name: student-performance-prediction
+description: Train regression models to estimate Chemical Engineering course Final marks.
+code: .
+command: >-
+  python -m src.train
+  --data-path ${{inputs.student_data}}
+  --output-dir ${{outputs.model_output}}
+inputs:
+  student_data:
+    type: uri_file
+    path: data/engineering-course-grades.csv
+    mode: download
+outputs:
+  model_output:
+    type: uri_folder
+    mode: upload
+environment:
+  image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu22.04:latest
+  conda_file: azure/conda.yml
+compute: azureml:cpu-cluster
+limits:
+  timeout: PT20M
